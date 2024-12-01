@@ -20,7 +20,7 @@ const Barbeiro = database.define('Barbeiro', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    especialidade: {
+    senha: {
         type: DataTypes.STRING,
         allowNull: false
     },

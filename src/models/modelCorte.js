@@ -12,6 +12,7 @@ const Corte = database.define('Corte', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    preco: DataTypes.DECIMAL,
     createdAt: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -22,8 +23,7 @@ const Corte = database.define('Corte', {
         allowNull: false,
         defaultValue: DataTypes.NOW
     },
-    preco: DataTypes.DECIMAL,
-    duracao: DataTypes.TIME,
+    
 })
 
 module.exports = Corte;

@@ -12,7 +12,7 @@ const Produto = database.define('Produto', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    quantidade_estoque: {
+    quantidadeEstoque: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
@@ -26,7 +26,6 @@ const Produto = database.define('Produto', {
         allowNull: false,
         defaultValue: DataTypes.NOW
     },
-    descricao: DataTypes.STRING,
     preco: DataTypes.DECIMAL,
 })
 
