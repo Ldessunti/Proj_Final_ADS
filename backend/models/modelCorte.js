@@ -13,17 +13,6 @@ const Corte = database.define('Corte', {
         allowNull: false
     },
     preco: DataTypes.DECIMAL,
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
-    
 })
 
 module.exports = Corte;

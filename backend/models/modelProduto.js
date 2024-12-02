@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const database = require('../config/db');
+import Venda from './modelVenda';
 
 const Produto = database.define('Produto', {
     id: {
@@ -16,17 +17,21 @@ const Produto = database.define('Produto', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
     preco: DataTypes.DECIMAL,
+    idProduto: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'Produto',
+            key: 'id'
+        }
+    },
 })
+
+Venda.belongsTo(Produto, {
+    constraints: true,
+    as: 'fkIdProduto'
+})
+
+
 
 module.exports = Produto;

@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const database = require('../config/db');
+const Venda = require('./modelVenda');
 
 const Cliente = database.define('Cliente', {
     id: {
@@ -24,16 +25,17 @@ const Cliente = database.define('Cliente', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    }
 })
+
+Cliente.hasMany(Venda, {
+    as: 'fkIdCliente',
+    foreignKey: 'idCliente',
+})
+
+Produto.hasMany(Venda, {
+    as: 'fkIdProduto',
+    foreignKey: 'idProduto',
+})
+
 
 module.exports = Cliente;
