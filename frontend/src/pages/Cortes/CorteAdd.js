@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function RegisterCorte() {
 
-  const endpoint = "http://10.0.0.152:3000/modelCorte";
+  const endpoint = "http://localhost:3000/modelCorte";
   const navigation = useNavigation();
 
 

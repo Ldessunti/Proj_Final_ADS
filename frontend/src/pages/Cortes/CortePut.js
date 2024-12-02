@@ -11,10 +11,17 @@ export default props => {
   const [id, setId] = useState('');
   const [descricao, setDescricao] = useState('');
   const [preco, setPreco] = useState('');
+  const [cortes, setCortes] = useState('');
 
   const handleUpdate = async () => {
     try {
-      const response =  await Api.put(`http://localhost:3000/modelCorte/${id}`, {descricao, preco});
+      const response =  await fetch(`http://localhost:3000/modelCorte/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ preco, descricao})
+      });
       if(response.ok){
         Alert.alert('Sucesso', 'Corte atualizado com sucesso!');
         setDescricao('');

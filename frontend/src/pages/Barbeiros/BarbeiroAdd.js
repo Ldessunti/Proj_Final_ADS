@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-//Barbeiro - id, name, email, telefone, senha, createdAt, updatedAt
+//Barbeiro - id, name, email, telefone, senha
 
 export default function RegisterBarbeiro() {
 
-  const endpoint = "http://10.0.0.152:3000/modelBarbeiro";
+  const endpoint = "http://localhost:3000/modelBarbeiro";
   const navigation = useNavigation();
 
 
@@ -66,8 +66,10 @@ export default function RegisterBarbeiro() {
       />
       <TextInput
         style={styles.input}
+        placeholder='Senha'
         value={senha}
         onChangeText={setSenha}
+        secureTextEntry={senha}
       />
       
 

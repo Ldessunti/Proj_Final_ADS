@@ -5,76 +5,74 @@ import { useNavigation } from '@react-navigation/native';
 
 export default props => {
 
-  const [cortes, setCortes] = useState([]);
+  const [vendas, setVendas] = useState([]);
   
   const navigation = useNavigation();
+  
+  //Venda - id, dataVenda, fkIdCliente, fkIdProduto
 
-  const fetchCortes = async () => {
-    try{
-      const response = await fetch('http://localhost:3000/modelCorte');
-      if(response.ok){
-        const data = await response.json();
-        setCortes(data);
-        
-      }
-    }catch(error){
-      console.error(error);
+  const fetchVendas = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/modelVenda");
+      const data = await response.json();
+      setVendas(data);
+    } catch (error) {
+      console.error('Erro ao buscar vendas2:', error);
     }
   }
 
-  const addCortes = async () => {
-    navigation.navigate('CortesAdd');
+  const addVenda = async () => {
+    navigation.navigate('VendasAdd');
   }
 
-  const updateCortes = async () => {
-    navigation.navigate('CortesUpdate');
+  const updateVenda = async () => {
+    navigation.navigate('VendasUpdate')
   }
 
-  const removeCortes = async (id) => {
+  const removeVenda = async (id) => {
     console.log(id);
     try {
-      const response = await fetch(`http://localhost:3000/modelCorte/${id}`, {
+      const response = await fetch(`http://localhost:3000/modelVenda/${id}`, {
         method: 'DELETE',
       });
   
       if (response.ok) {
-        fetchCortes(); // Atualiza a lista após a exclusão
+        fetchVendas(); // Atualiza a lista após a exclusão
       } else {
-        console.error('Erro ao excluir o corte:', response.statusText);
+        console.error('Erro ao excluir a venda:', response.statusText);
       }
     } catch (error) {
-      console.error('Erro ao excluir o corte:', error);
+      console.error('Erro ao excluir a venda:', error);
     }
   };
   
 
   useEffect(()=>{
-    fetchCortes();
+    fetchVendas();
   }, [])
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Nossos Cortes</Text>
-      <TouchableOpacity onPress={addCortes}>
-        <FontAwesome name="plus" size={24} color="black" /> 
+      <Text style={styles.title}>Nossas Vendas</Text>
+      <TouchableOpacity onPress={addVenda}>
+        <FontAwesome name="plus" size={24} color="black" />
       </TouchableOpacity>
       <FlatList
-        data={cortes}
+        data={vendas}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.card}>
             <Image source={{ uri: item.imagem }} style={styles.image} />
             <Text style={styles.id}>{item.id}</Text>
-            <Text style={styles.name}>{item.descricao}</Text>
-            <Text style={styles.price}>{item.preco}</Text>
+            <Text style={styles.name}>{item.dataVenda}</Text>
             <View style={styles.icons}>
               <View style={styles.icons2}> 
-                <TouchableOpacity onPress={updateCortes}>
+                <TouchableOpacity onPress={updateVenda}>
                   <FontAwesome name="pencil" size={24} color="black" />
                 </TouchableOpacity>
               </View>
               <View style={styles.icons2}> 
-                <TouchableOpacity onPress={() => removeCortes(item.id)}>
+                <TouchableOpacity onPress={() => removeVenda(item.id)}>
                   <FontAwesome name="trash" size={24} color="black" />
                 </TouchableOpacity>
               </View>
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: 150,
-    height: 220,
+    height: 240,
     backgroundColor: '#fff',
     borderRadius: 10,
     elevation: 3,

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Button, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
 import Api from '../../Api';
 
 export default props => {
@@ -8,38 +9,41 @@ export default props => {
   const navigation = useNavigation();
 
   const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [quantidadeEstoque, setQuantidadeEstoque] = useState('');
-  const [preco, setPreco] = useState('');
-  const [produtos, setProdutos] = useState([]);
+  const [telefone, setTelefone] = useState('');
+  const [senha, setSenha] = useState('');
+  const [clientes, setClientes] = useState('');
 
   const handleUpdate = async () => {
     try {
-      const response =  await fetch(`http://localhost:3000/modelProduto/${id}`, {
+      const response =  await fetch(`http://localhost:3000/modelCliente/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({name, preco, quantidadeEstoque})
+        body: JSON.stringify({ email, name, telefone, senha})
       });
       if(response.ok){
-        Alert.alert('Sucesso', 'Corte atualizado com sucesso!');
+        Alert.alert('Sucesso', 'Cliente atualizado com sucesso!');
         setName('');
-        setQuantidadeEstoque('');
-        setPreco('');
-        setProdutos(response);
+        setEmail('');
+        setTelefone('');
+        setSenha('');
+        setClientes(response);
+
+        navigation.navigate('Clientes');
         
-        navigation.navigate('Produtos');
       }
     } catch (error) {
-      console.error('Erro ao atualizar o produto:', error);
-      Alert.alert('Erro', 'Falha ao atualizar o produto.');
+      console.error('Erro ao atualizar o cliente:', error);
+      Alert.alert('Erro', 'Falha ao atualizar o cliente.');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Atualizar Produto</Text>
+      <Text style={styles.title}>Atualizar Cliente</Text>
         <View style={styles.form}>
           <Text style={styles.label}>ID:</Text>
           <TextInput
@@ -55,22 +59,31 @@ export default props => {
             onChangeText={setName}
           />
 
-          <Text style={styles.label}>Estoque:</Text>
+          <Text style={styles.label}>E-mail:</Text>
           <TextInput
             style={styles.input}
-            value={quantidadeEstoque}
-            onChangeText={setQuantidadeEstoque}
+            value={email}
+            onChangeText={setEmail}
+            keyboardType='email-address'
           />
 
-          <Text style={styles.label}>Preço:</Text>
+          <Text style={styles.label}>Telefone:</Text>
           <TextInput
             style={styles.input}
-            value={preco}
-            onChangeText={setPreco}
+            value={telefone}
+            onChangeText={setTelefone}
             keyboardType="numeric"
           />
 
-          <Button title="Atualizar Produto" onPress={handleUpdate} />
+          <Text style={styles.label}>Senha:</Text>
+          <TextInput
+            style={styles.input}
+            value={senha}
+            onChangeText={setSenha}
+            secureTextEntry={senha}
+          />
+
+          <Button title="Atualizar Cliente" onPress={handleUpdate} />
         </View>
     </View>
   );

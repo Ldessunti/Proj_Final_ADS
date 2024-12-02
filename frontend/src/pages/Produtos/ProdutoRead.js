@@ -60,7 +60,7 @@ export default props => {
     <View style={styles.container}>
       <Text style={styles.title}>Nossos Produtos</Text>
       <TouchableOpacity onPress={addProduto}>
-        <Text>Add</Text>
+        <FontAwesome name="plus" size={24} color="black" />
       </TouchableOpacity>
       <FlatList
         data={produtos}
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: 150,
-    height: 240,
+    height: 270,
     backgroundColor: '#fff',
     borderRadius: 10,
     elevation: 3,

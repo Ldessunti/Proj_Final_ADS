@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import ImagemBackground from '../assets/barbearia_acinzentada.jpg';
+import logoBarber from '../assets/logo_barber.png';
 
 export default function Home({ navigation }) {
   return (
@@ -36,9 +37,23 @@ export default function Home({ navigation }) {
 
           <TouchableOpacity 
             style={styles.button}
-            onPress={() => navigation.navigate('Agendamentos')}
+            onPress={() => navigation.navigate('AgendamentosAdd')}
           >
-            <Text style={styles.buttonText}>Agendamentos</Text>
+            <Text style={styles.buttonText}>Agende seu Horário</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={styles.button}
+            onPress={() => navigation.navigate('Vendas')}
+          >
+            <Text style={styles.buttonText}>Vendas</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={styles.button}
+            onPress={() => navigation.navigate('Clientes')}
+          >
+            <Text style={styles.buttonText}>Clientes</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -84,7 +99,7 @@ const styles = StyleSheet.create({
     width: '80%',
     alignItems: 'center',
   },
-  buttonText: {
+  buttonText: { 
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',

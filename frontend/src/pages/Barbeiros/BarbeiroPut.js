@@ -13,10 +13,17 @@ export default props => {
   const [name, setName] = useState('');
   const [telefone, setTelefone] = useState('');
   const [senha, setSenha] = useState('');
+  const [barbeiros, setBarbeiros] = useState('');
 
   const handleUpdate = async () => {
     try {
-      const response =  await Api.put(`http://localhost:3000/modelBarbeiro/${id}`, {name, email, telefone, senha});
+      const response =  await fetch(`http://localhost:3000/modelBarbeiro/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, name, telefone, senha})
+      });
       if(response.ok){
         Alert.alert('Sucesso', 'Barbeiro atualizado com sucesso!');
         setName('');

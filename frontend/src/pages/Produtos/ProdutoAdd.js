@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function RegisterProduto() {
 
-  const endpoint = "http://10.0.0.152:3000/modelProduto";
+  const endpoint = "http://localhost:3000/modelProduto";
   const navigation = useNavigation();
 
 
@@ -50,7 +50,7 @@ export default function RegisterProduto() {
       />
       <TextInput
         style={styles.input}
-        placeholder="5"
+        placeholder="Estoque"
         value={quantidadeEstoque}
         onChangeText={setQuantidadeEstoque}
       />

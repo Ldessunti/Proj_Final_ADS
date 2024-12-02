@@ -31,7 +31,6 @@ export default props => {
   }
 
   const removeBarbeiro = async (id) => {
-    console.log(id);
     try {
       const response = await fetch(`http://localhost:3000/modelBarbeiro/${id}`, {
         method: 'DELETE',
@@ -56,7 +55,7 @@ export default props => {
     <View style={styles.container}>
       <Text style={styles.title}>Nossos Barbeiros</Text>
       <TouchableOpacity onPress={addBarbeiro}>
-        <Text>Add</Text>
+        <FontAwesome name="plus" size={24} color="black" />
       </TouchableOpacity>
       <FlatList
         data={barbeiros}
