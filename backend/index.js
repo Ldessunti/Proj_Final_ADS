@@ -22,15 +22,15 @@ const Barbeiro = require('./models/modelBarbeiro');
 const Corte = require('./models/modelCorte');
 const Venda = require('./models/modelVenda');
 
-//Cliente - id, name, email, telefone, senha, createdAt, updatedAt
+//Cliente - id, name, email, telefone, senha, , 
 
 //Cliente - POST
 
 app.post('/modelCliente', async(req, res) => {
   try{
-    const { name, email, telefone, senha, createdAt, updatedAt } = req.body;
+    const { name, email, telefone, senha } = req.body;
 
-    const newCliente = await Cliente.create({name, email, telefone, senha, createdAt, updatedAt});
+    const newCliente = await Cliente.create({name, email, telefone, senha });
 
     res.status(202).json(newCliente);
   } catch (error) {
@@ -58,13 +58,7 @@ app.put('/modelCliente/:id', async (req, res) => {
     const { id } = req.params;
     const { name, email, telefone, senha } = req.body;
 
-    //Teste
-    console.log(id, name, email, telefone, senha);
-
     const cliente = await Cliente.findByPk(id);
-
-    //Teste
-    console.log(cliente);
 
     if (cliente) {
 
@@ -107,21 +101,15 @@ app.delete('/modelCliente/:id', async (req, res) => {
   }
 });
 
-//Produto - id, quantidadeEstoque, preco, createdAt, updatedAt
+//Produto - id, quantidadeEstoque, preco, , 
 
 //Produto - POST
 
 app.post('/modelProduto', async(req, res) => {
   try{
-    const { id, name, quantidadeEstoque, preco, createdAt, updatedAt } = req.body;
-      
-    //Teste
-    console.log(id, name, quantidadeEstoque, preco, createdAt, updatedAt);
+    const { id, name, quantidadeEstoque, preco } = req.body;
 
     const newProduto = await Produto.create({name, quantidadeEstoque, preco});
-
-    //Teste
-    console.log(newProduto);
 
     res.status(202).json(newProduto);
   } catch (error) {
@@ -134,15 +122,9 @@ app.post('/modelProduto', async(req, res) => {
 app.get('/modelProduto', async(req, res) => {
   try{
     const { id } = req.params;
-      
-    //Teste
-    console.log(id);
 
     const produtos = await Produto.findAll();
     res.status(202).json(produtos)
-
-    //Teste
-    console.log(produtos);
 
   } catch (error) {
     res.status(500).json({error: 'Falha ao buscar Produto'})
@@ -156,13 +138,7 @@ app.put('/modelProduto/:id', async (req, res) => {
     const { id } = req.params;
     const { name, quantidadeEstoque, preco } = req.body;
 
-    //Teste
-    console.log(id, name, quantidadeEstoque, preco);
-
     const produto = await Produto.findByPk(id);
-
-    //Teste
-    console.log(produto);
 
     if (produto) {
 
@@ -187,12 +163,6 @@ app.delete('/modelProduto/:id', async (req, res) => {
     const { id } = req.params;
     const produto = await Produto.findByPk(id);
 
-    //Teste
-    console.log(id);
-
-     //Teste
-     console.log(produto);
-
     if (produto) {
       await produto.destroy();
       res.json({ message: 'Produto apagado com sucesso' });
@@ -205,21 +175,15 @@ app.delete('/modelProduto/:id', async (req, res) => {
 });
 
 
-//Agendamento - id, dataHora, status, fkIdBarbeiro, fkIdCorte, fkIdCliente, createdAt, updatedAt
+//Agendamento - id, dataHora, fkIdBarbeiro, fkIdCorte, fkIdCliente
 
 //Agendamento - POST
 
 app.post('/modelAgendamento', async(req, res) => {
   try{
-    const { dataHora, status, fkIdBarbeiro, fkIdCorte, fkIdCliente, createdAt, updatedAt } = req.body;
+    const { dataHora, fkIdBarbeiro, fkIdCliente } = req.body;
       
-    //Teste
-    console.log(dataHora, status, fkIdBarbeiro, fkIdCliente, fkIdCorte);
-
-    const newAgendamento = await Agendamento.create({dataHora, status, fkIdBarbeiro, fkIdCliente, fkIdCorte, createdAt, updatedAt});
-
-    //Teste
-    console.log(newAgendamento);
+    const newAgendamento = await Agendamento.create({dataHora, fkIdBarbeiro, fkIdCliente });
 
     res.status(202).json(newAgendamento);
   } catch (error) {
@@ -232,15 +196,9 @@ app.post('/modelAgendamento', async(req, res) => {
 app.get('/modelAgendamento', async(req, res) => {
   try{
     const { id } = req.params;
-      
-    //Teste
-    console.log(id);
 
     const cliente = await Cliente.findByPk(id, {include: Agendamento});
     res.status(202).json(cliente.agendamentos)
-
-    //Teste
-    console.log(cliente.agendamentos);
 
   } catch (error) {
     res.status(500).json({error: 'Falha ao buscar Agendamentos'})
@@ -252,20 +210,13 @@ app.get('/modelAgendamento', async(req, res) => {
 app.put('/modelAgendamento/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { dataHora, status, fkIdBarbeiro, fkIdCliente, fkIdCorte } = req.body;
-
-    //Teste
-    console.log(id, dataHora, status, fkIdBarbeiro, fkIdCliente, fkIdCorte);
+    const { dataHora } = req.body;
 
     const agendamento = await Agendamento.findByPk(id);
-
-    //Teste
-    console.log(agendamento);
 
     if (agendamento) {
 
       agendamento.dataHora = dataHora;
-      agendamento.status = status;
 
       await agendamento.save();
       res.json(agendamento);
@@ -284,12 +235,6 @@ app.delete('/modelAgendamento/:id', async (req, res) => {
     const { id } = req.params;
     const agendamento = await Agendamento.findByPk(id);
 
-    //Teste
-    console.log(id);
-
-     //Teste
-     console.log(agendamento);
-
     if (agendamento) {
       await agendamento.destroy();
       res.json({ message: 'Agendamento apagado com sucesso' });
@@ -301,21 +246,15 @@ app.delete('/modelAgendamento/:id', async (req, res) => {
   }
 });
 
-//Barbeiro - id, name, email, telefone, senha, createdAt, updatedAt
+//Barbeiro - id, name, email, telefone, senha, , 
 
 //Barbeiro - POST
 
 app.post('/modelBarbeiro', async(req, res) => {
   try{
-    const { name, email, telefone, senha, createdAt, updatedAt } = req.body;
+    const { name, email, telefone, senha } = req.body;
       
-    //Teste
-    console.log(name, email, telefone, senha);
-
-    const newBarbeiro = await Barbeiro.create({name, email, telefone, senha, createdAt, updatedAt});
-
-    //Teste
-    console.log(newBarbeiro);
+    const newBarbeiro = await Barbeiro.create({name, email, telefone, senha});
 
     res.status(202).json(newBarbeiro);
   } catch (error) {
@@ -331,9 +270,6 @@ app.get('/modelBarbeiro', async(req, res) => {
     const barbeiro = await Barbeiro.findAll();
     res.status(202).json(barbeiro)
 
-    //Teste
-    console.log(barbeiro);
-
   } catch (error) {
     res.status(500).json({error: 'Falha ao buscar Barbeiro'})
   }
@@ -346,13 +282,7 @@ app.put('/modelBarbeiro/:id', async (req, res) => {
     const { id } = req.params;
     const { name, email, telefone, senha } = req.body;
 
-    //Teste
-    console.log(id, name, email, telefone, senha);
-
     const barbeiro = await Barbeiro.findByPk(id);
-
-    //Teste
-    console.log(barbeiro);
 
     if (barbeiro) {
 
@@ -378,12 +308,6 @@ app.delete('/modelBarbeiro/:id', async (req, res) => {
     const { id } = req.params;
     const barbeiro = await Barbeiro.findByPk(id);
 
-    //Teste
-    console.log(id);
-
-     //Teste
-     console.log(barbeiro);
-
     if (barbeiro) {
       await barbeiro.destroy();
       res.json({ message: 'Barbeiro apagado com sucesso' });
@@ -396,21 +320,15 @@ app.delete('/modelBarbeiro/:id', async (req, res) => {
 });
 
 
-//Corte - id, descricao, preco, createdAt, updatedAt
+//Corte - id, descricao, preco, , 
 
 //Corte - POST
 
 app.post('/modelCorte', async(req, res) => {
   try{
-    const { descricao, preco, createdAt, updatedAt } = req.body;
+    const { descricao, preco } = req.body;
       
-    //Teste
-    console.log(descricao, preco, createdAt, updatedAt);
-
-    const newCorte = await Corte.create({descricao, preco, createdAt, updatedAt});
-
-    //Teste
-    console.log(newCorte);
+    const newCorte = await Corte.create({descricao, preco});
 
     res.status(202).json(newCorte);
   } catch (error) {
@@ -423,13 +341,8 @@ app.post('/modelCorte', async(req, res) => {
 app.get('/modelCorte', async(req, res) => {
   try{
     const corte = await Corte.findAll();
-    
-    //Teste
-    console.log(corte, "Back");
-    
-    res.status(202).json(corte)
 
-    
+    res.status(202).json(corte)
 
   } catch (error) {
     res.status(500).json({error: 'Falha ao buscar Corte'})
@@ -443,13 +356,7 @@ app.put('/modelCorte/:id', async (req, res) => {
     const { id } = req.params;
     const { descricao, preco } = req.body;
 
-    //Teste
-    console.log(id, descricao, preco);
-
     const corte = await Corte.findByPk(id);
-
-    //Teste
-    console.log(corte);
 
     if (corte) {
  
@@ -473,12 +380,6 @@ app.delete('/modelCorte/:id', async (req, res) => {
     const { id } = req.params;
     const corte = await Corte.findByPk(id);
 
-    //Teste
-    console.log(id);
-
-     //Teste
-     console.log(corte);
-
     if (corte) {
       await corte.destroy();
       res.json({ message: 'Corte apagado com sucesso' });
@@ -490,21 +391,15 @@ app.delete('/modelCorte/:id', async (req, res) => {
   }
 });
 
-//Venda - id, descricao, preco, duracao, createdAt, updatedAt
+//Venda - id, descricao, preco, duracao, , 
 
 //Corte - POST
 
 app.post('/modelCorte', async(req, res) => {
   try{
-    const { descricao, preco, duracao, createdAt, updatedAt } = req.body;
-      
-    //Teste
-    console.log(descricao, preco, duracao);
+    const { descricao, preco, duracao } = req.body;
 
-    const newCorte = await Corte.create({descricao, preco, duracao, createdAt, updatedAt});
-
-    //Teste
-    console.log(newCorte);
+    const newCorte = await Corte.create({descricao, preco, duracao});
 
     res.status(202).json(newCorte);
   } catch (error) {
@@ -518,14 +413,8 @@ app.get('/modelCorte', async(req, res) => {
   try{
     const { id } = req.params;
       
-    //Teste
-    console.log(id);
-
     const corte = await Corte.findByPk(id);
     res.status(202).json(corte)
-
-    //Teste
-    console.log(corte);
 
   } catch (error) {
     res.status(500).json({error: 'Falha ao buscar Corte'})
@@ -539,13 +428,7 @@ app.put('/modelCorte/:id', async (req, res) => {
     const { id } = req.params;
     const { descricao, preco, duracao } = req.body;
 
-    //Teste
-    console.log(id, descricao, preco, duracao);
-
     const corte = await Corte.findByPk(id);
-
-    //Teste
-    console.log(corte);
 
     if (corte) {
 
@@ -570,12 +453,6 @@ app.delete('/modelCorte/:id', async (req, res) => {
     const { id } = req.params;
     const corte = await Corte.findByPk(id);
 
-    //Teste
-    console.log(id);
-
-     //Teste
-     console.log(corte);
-
     if (corte) {
       await corte.destroy();
       res.json({ message: 'Corte apagado com sucesso' });
@@ -588,21 +465,17 @@ app.delete('/modelCorte/:id', async (req, res) => {
 });
 
 
-//Venda - id, dataVenda, fkIdCliente, createdAt, updatedAt
+//Venda - id, dataVenda, fkIdCliente, fkIdProduto
 
 //Venda - POST
 
 app.post('/modelVenda', async(req, res) => {
   try{
-    const { dataVenda, fkIdCliente, createdAt, updatedAt } = req.body;
-      
-    //Teste
-    console.log(dataVenda, fkIdCliente);
+    const { dataVenda, fkIdCliente, fkIdProduto } = req.body;
 
-    const newVenda = await Agendamento.create({dataVenda, fkIdCliente, createdAt, updatedAt});
-
-    //Teste
-    console.log(newVenda);
+    console.log(req.body);
+    
+    const newVenda = await Venda.create({dataVenda: '2002-02-15', fkIdCliente, fkIdProduto});
 
     res.status(202).json(newVenda);
   } catch (error) {
@@ -612,20 +485,11 @@ app.post('/modelVenda', async(req, res) => {
 
 //Venda - GET
 
-app.get('/modelVenda', async(req, res) => {
+app.get('/modelVenda', async(req, res) =>{
   try{
-    const { id } = req.params;
-      
-    //Teste
-    console.log(id);
-
-    const cliente = await Cliente.findByPk(id, {include: Venda});
-    res.status(202).json(cliente.vendas)
-
-    //Teste
-    console.log(cliente.vendas);
-
-  } catch (error) {
+    const vendas = await Venda.findAll();
+    res.status(202).json(vendas)
+  }catch(error){
     res.status(500).json({error: 'Falha ao buscar Venda'})
   }
 })
@@ -635,19 +499,13 @@ app.get('/modelVenda', async(req, res) => {
 app.put('/modelVenda/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { dataVenda, fkIdCliente } = req.body;
-
-    //Teste
-    console.log(id, dataVenda, fkIdCliente);
+    const { dataVenda } = req.body;
 
     const venda = await Venda.findByPk(id);
 
-    //Teste
-    console.log(venda);
-
     if (venda) {
 
-      venda.dataHora = dataHora;
+      venda.dataVenda = dataVenda;
 
       await venda.save();
       res.json(venda);
@@ -665,12 +523,6 @@ app.delete('/modelVenda/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const venda = await Venda.findByPk(id);
-
-    //Teste
-    console.log(id);
-
-     //Teste
-     console.log(venda);
 
     if (venda) {
       await venda.destroy();
