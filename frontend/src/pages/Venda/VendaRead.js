@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import VendaIcon from '../../assets/logo_vendas.png';
 
 export default props => {
 
@@ -19,14 +20,6 @@ export default props => {
     } catch (error) {
       console.error('Erro ao buscar vendas2:', error);
     }
-  }
-
-  const addVenda = async () => {
-    navigation.navigate('VendasAdd');
-  }
-
-  const updateVenda = async () => {
-    navigation.navigate('VendasUpdate')
   }
 
   const removeVenda = async (id) => {
@@ -54,7 +47,7 @@ export default props => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Nossas Vendas</Text>
-      <TouchableOpacity onPress={addVenda}>
+      <TouchableOpacity onPress={() => navigation.navigate('VendasAdd')}>
         <FontAwesome name="plus" size={24} color="black" />
       </TouchableOpacity>
       <FlatList
@@ -62,12 +55,12 @@ export default props => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Image source={{ uri: item.imagem }} style={styles.image} />
+            <Image source={VendaIcon} style={styles.image} />
             <Text style={styles.id}>{item.id}</Text>
             <Text style={styles.name}>{item.dataVenda}</Text>
             <View style={styles.icons}>
               <View style={styles.icons2}> 
-                <TouchableOpacity onPress={updateVenda}>
+                <TouchableOpacity onPress={() => navigation.navigate('VendasUpdate')}>
                   <FontAwesome name="pencil" size={24} color="black" />
                 </TouchableOpacity>
               </View>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import BarberIcon from '../../assets/logo_barber.png';
 
 export default props => {
 
@@ -20,14 +21,6 @@ export default props => {
     }catch(error){
       console.error(error);
     }
-  }
-
-  const addBarbeiro = async () => {
-    navigation.navigate('BarbeirosAdd');
-  }
-
-  const updateBarbeiro = async () => {
-    navigation.navigate('BarbeirosUpdate');
   }
 
   const removeBarbeiro = async (id) => {
@@ -54,7 +47,7 @@ export default props => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Nossos Barbeiros</Text>
-      <TouchableOpacity onPress={addBarbeiro}>
+      <TouchableOpacity onPress={() => navigation.navigate('BarbeirosAdd')}>
         <FontAwesome name="plus" size={24} color="black" />
       </TouchableOpacity>
       <FlatList
@@ -62,14 +55,14 @@ export default props => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Image source={{ uri: item.imagem }} style={styles.image} />
+            <Image source={BarberIcon} style={styles.image} />
             <Text style={styles.id}>{item.id}</Text>
             <Text style={styles.name}>{item.name}</Text>
             <Text style={styles.info}>{item.email}</Text>
             <Text style={styles.info}>{item.telefone}</ Text>
             <View style={styles.icons}>
               <View style={styles.icons2}> 
-                <TouchableOpacity onPress={updateBarbeiro}>
+                <TouchableOpacity onPress={() => navigation.navigate('BarbeirosUpdate')}>
                   <FontAwesome name="pencil" size={24} color="black" />
                 </TouchableOpacity>
               </View>

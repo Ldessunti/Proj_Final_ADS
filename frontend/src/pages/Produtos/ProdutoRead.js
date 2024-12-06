@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import ProdutoIcon from '../../assets/logo_produto.jpg';
 
 export default props => {
 
@@ -26,16 +27,7 @@ export default props => {
     }
   }
 
-  const addProduto = async () => {
-    navigation.navigate('ProdutosAdd');
-  }
-
-  const updateProduto = async () => {
-    navigation.navigate('ProdutosUpdate');
-  }
-
   const removeProduto = async (id) => {
-    console.log(id);
     try {
       const response = await fetch(`http://localhost:3000/modelProduto/${id}`, {
         method: 'DELETE',
@@ -59,7 +51,7 @@ export default props => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Nossos Produtos</Text>
-      <TouchableOpacity onPress={addProduto}>
+      <TouchableOpacity onPress={() => navigation.navigate('ProdutosAdd')}>
         <FontAwesome name="plus" size={24} color="black" />
       </TouchableOpacity>
       <FlatList
@@ -67,14 +59,14 @@ export default props => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Image source={{ uri: item.imagem }} style={styles.image} />
+            <Image source={ProdutoIcon} style={styles.image} />
             <Text style={styles.id}>{item.id}</Text>
             <Text style={styles.name}>{item.name}</Text>
             <Text style={styles.price}>{item.quantidadeEstoque}</Text>
-            <Text style={styles.price}>{item.preco}</Text>
+            <Text style={styles.price}>R${item.preco}</Text>
             <View style={styles.icons}>
               <View style={styles.icons2}> 
-                <TouchableOpacity onPress={updateProduto}>
+                <TouchableOpacity onPress={() => navigation.navigate('ProdutosUpdate')}>
                   <FontAwesome name="pencil" size={24} color="black" />
                 </TouchableOpacity>
               </View>

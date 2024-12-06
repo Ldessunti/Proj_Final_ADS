@@ -10,6 +10,7 @@ import Barbeiro from './src/pages/Barbeiros/BarbeiroRead';
 import Venda from './src/pages/Venda/VendaRead';
 import Cliente from './src/pages/Cliente/ClienteRead';
 import Agendamento from './src/pages/Agendamentos/AgendamentoRead';
+import Grafico from './src/pages/Graficos/graficos';
 
 import CortesAdd from './src/pages/Cortes/CorteAdd';
 import CortesUpdate from './src/pages/Cortes/CortePut';
@@ -26,7 +27,7 @@ import VendasUpdate from './src/pages/Venda/VendaPut';
 import ClientesUpdate from './src/pages/Cliente/ClientePut';
 
 import AgendamentosAdd from './src/pages/Agendamentos/AgendamentoAdd';
-//import AgendamentosUpdate from './src/pages/Agendamentos/AgendamentoPut';
+import AgendamentosUpdate from './src/pages/Agendamentos/AgendamentoPut';
 
 
 const Stack = createStackNavigator();
@@ -34,7 +35,7 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SignIn">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
         
@@ -44,7 +45,9 @@ export default function App() {
         <Stack.Screen name="Barbeiros" component={Barbeiro} />
         <Stack.Screen name="Vendas" component={Venda} />
         <Stack.Screen name="Clientes" component={Cliente} />
-
+        <Stack.Screen name="Agendamentos" component={Agendamento} />
+        <Stack.Screen name="Graficos" component={Grafico} />
+        
         <Stack.Screen name="CortesAdd" component={CortesAdd} />
         <Stack.Screen name="CortesUpdate" component={CortesUpdate} />
 
@@ -65,6 +68,6 @@ export default function App() {
   );
 }
 
-//<Stack.Screen name="Agendamentos" component={Agendamento} />
+
 
 //<Stack.Screen name="AgendamentosUpdate" component={AgendamentosUpdate} />

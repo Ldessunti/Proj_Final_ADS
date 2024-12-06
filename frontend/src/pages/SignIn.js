@@ -6,36 +6,45 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function LoginScreen() {
 
-    const endpoint = "http://10.0.0.152:3000/modelCliente";
+    const endpoint = "http://localhost:3000/modelCliente";
     const navigation = useNavigation();
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
   
     const handleLogin = async () => {
-       
+
       if (email === '' || senha === '') {
         Alert.alert('Erro', 'Por favor, preencha todos os campos.');
-      } else {
-        try{
-          const response = await fetch(endpoint,
-            {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            });
-          if(response.ok){
-            if(response.email === email && response.senha === senha){
-              Alert.alert('Sucesso', 'Login bem-sucedido!');
-              const data = await response.json();
-              setCliente(data);
-              navigation.navigate('MainTab')
+        return;
+      }
+  
+      try {
+        const response = await fetch(endpoint);
+        const clientes = await response.json();
+  
+        if (response.ok && typeof clientes === 'object' && clientes.length > 0) {
+          let autenticado = false;
+  
+          for (let i = 0; i < clientes.length; i++) {
+            if (clientes[i].email === email && clientes[i].senha === senha) {
+              autenticado = true;
+              break;
             }
           }
-        }catch(error){
-          console.error(error);
+  
+          if (autenticado) {
+            Alert.alert('Sucesso', 'Login bem-sucedido!');
+            navigation.navigate('Home');
+          } else {
+            Alert.alert('Erro', 'Email ou senha inválidos.');
+          }
+        } else {
+          Alert.alert('Erro', 'Falha ao buscar clientes no servidor.');
         }
+      } catch (error) {
+        console.error('Erro ao realizar login:', error);
+        Alert.alert('Erro', 'Falha ao realizar login. Tente novamente.');
       }
     };
   

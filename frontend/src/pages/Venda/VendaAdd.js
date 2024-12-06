@@ -27,7 +27,9 @@ export default function RegisterVenda() {
       return;
     }
 
-
+    parseInt(venda.fkIdCliente);
+    parseInt(venda.fkIdProduto);
+    
     try {
       const response = await fetch("http://localhost:3000/modelVenda", {
         

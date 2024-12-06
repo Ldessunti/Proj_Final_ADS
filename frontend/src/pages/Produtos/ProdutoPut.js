@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Button, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Api from '../../Api';
 
 export default props => {
 

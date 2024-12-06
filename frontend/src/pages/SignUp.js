@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function RegisterScreen() {
 
-  const endpoint = "http://10.0.0.152:3000/modelCliente";
+  const endpoint = "http://localhost:3000/modelCliente";
   const navigation = useNavigation();
 
   const [name, setName] = useState('');
@@ -14,26 +14,27 @@ export default function RegisterScreen() {
   const [confirmSenha, setConfirmSenha] = useState('');
 
   const handleRegister = async() => {
+    console.log(name, email, telefone, senha, confirmSenha);
     if (name === '' || email === '' || telefone === '' || senha === '' || confirmSenha === '') {
       Alert.alert('Erro', 'Por favor, preencha todos os campos.');
     } else if (senha !== confirmSenha) {
       Alert.alert('Erro', 'As senhas não coincidem.');
     } else {
-        try{
-          const response = await fetch(endpoint,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({name, email, telefone, senha})
-            });
-            if(response.ok){
-              Alert.alert("Cliente inserido com sucesso!");
-              navigation.navigate('Home')
-            }
+      try{
+        const response = await fetch(endpoint,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name, email, telefone, senha})
+          });
+          if(response.ok){
+            Alert.alert("Cliente inserido com sucesso!");
+            navigation.navigate('Home')
+          }
         }catch(error){
-            console.error(error);
+          console.error(error);
         }
       Alert.alert('Sucesso', 'Cadastro bem-sucedido!');
     }

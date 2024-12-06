@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import CorteIcon from '../../assets/logo_corte.png';
 
 export default props => {
 
@@ -21,15 +22,7 @@ export default props => {
       console.error(error);
     }
   }
-
-  const addCortes = async () => {
-    navigation.navigate('CortesAdd');
-  }
-
-  const updateCortes = async () => {
-    navigation.navigate('CortesUpdate');
-  }
-
+  
   const removeCortes = async (id) => {
     console.log(id);
     try {
@@ -55,7 +48,7 @@ export default props => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Nossos Cortes</Text>
-      <TouchableOpacity onPress={addCortes}>
+      <TouchableOpacity onPress={() => navigation.navigate('CortesAdd')}>
         <FontAwesome name="plus" size={24} color="black" /> 
       </TouchableOpacity>
       <FlatList
@@ -63,13 +56,13 @@ export default props => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Image source={{ uri: item.imagem }} style={styles.image} />
+            <Image source={CorteIcon} style={styles.image} />
             <Text style={styles.id}>{item.id}</Text>
             <Text style={styles.name}>{item.descricao}</Text>
             <Text style={styles.price}>{item.preco}</Text>
             <View style={styles.icons}>
               <View style={styles.icons2}> 
-                <TouchableOpacity onPress={updateCortes}>
+                <TouchableOpacity onPress={() => navigation.navigate('CortesUpdate')}>
                   <FontAwesome name="pencil" size={24} color="black" />
                 </TouchableOpacity>
               </View>

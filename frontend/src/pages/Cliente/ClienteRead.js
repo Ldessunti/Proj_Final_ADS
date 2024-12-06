@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity, Alert } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import ClienteIcon from '../../assets/img_cliente.jpg';
 
 export default props => {
 
@@ -21,11 +22,7 @@ export default props => {
       console.error(error);
     }
   }
-
-  const updateCliente = async () => {
-    navigation.navigate('ClientesUpdate');
-  }
-
+  
   const removeCliente = async (id) => {
     Alert.alert(
       'Confirmação',
@@ -74,12 +71,12 @@ export default props => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Image source={{ uri: item.imagem }} style={styles.image} />
+            <Image source={ClienteIcon} style={styles.image} />
             <Text style={styles.profileName}>{item.name}</Text>
             <Text style={styles.profileEmail}>{item.email}</Text>
             <Text style={styles.profilePhone}>{item.telefone}</Text>
             <View style={styles.icons}>
-              <TouchableOpacity style={styles.icon} onPress={updateCliente}>
+              <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate('ClientesUpdate')}>
                 <FontAwesome name="pencil" size={24} color="#4CAF50" />
               </TouchableOpacity>
               <TouchableOpacity style={styles.icon} onPress={() => removeCliente(item.id)}>
