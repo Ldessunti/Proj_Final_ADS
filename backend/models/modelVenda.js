@@ -11,27 +11,27 @@ const Venda = database.define('Venda', {
         primaryKey: true
     },
     dataVenda: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false
     },
 })
 
 Venda.belongsTo(Cliente, {
     constraints: true,
-    as: 'fkIdCliente'
+    foreignKey: 'fkIdCliente'
 })
 
 Venda.belongsTo(Produto, {
     constraints: true,
-    as: 'fkIdProduto'
+    foreignKey: 'fkIdProduto'
 })
 
 Cliente.hasMany(Venda, {
-    as: 'fkIdCliente'
+    foreignKey: 'fkIdCliente'
 })
 
 Produto.hasMany(Venda, {
-    as: 'fkIdProduto'
+    foreignKey: 'fkIdProduto'
 })
 
 

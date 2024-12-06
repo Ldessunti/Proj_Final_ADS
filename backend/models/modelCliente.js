@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const database = require('../config/db');
-const Venda = require('./modelVenda');
 
 const Cliente = database.define('Cliente', {
     id: {
@@ -25,16 +24,6 @@ const Cliente = database.define('Cliente', {
         type: DataTypes.STRING,
         allowNull: false
     },
-})
-
-Cliente.hasMany(Venda, {
-    as: 'fkIdCliente',
-    foreignKey: 'idCliente',
-})
-
-Produto.hasMany(Venda, {
-    as: 'fkIdProduto',
-    foreignKey: 'idProduto',
 })
 
 

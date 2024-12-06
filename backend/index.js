@@ -195,10 +195,8 @@ app.post('/modelAgendamento', async(req, res) => {
 
 app.get('/modelAgendamento', async(req, res) => {
   try{
-    const { id } = req.params;
-
-    const cliente = await Cliente.findByPk(id, {include: Agendamento});
-    res.status(202).json(cliente.agendamentos)
+    const agendamentos = await Agendamento.findAll();
+    res.status(202).json(agendamentos)
 
   } catch (error) {
     res.status(500).json({error: 'Falha ao buscar Agendamentos'})
@@ -475,7 +473,7 @@ app.post('/modelVenda', async(req, res) => {
 
     console.log(req.body);
     
-    const newVenda = await Venda.create({dataVenda: '2002-02-15', fkIdCliente, fkIdProduto});
+    const newVenda = await Venda.create({dataVenda, fkIdCliente, fkIdProduto});
 
     res.status(202).json(newVenda);
   } catch (error) {

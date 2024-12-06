@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const database = require('../config/db');
-import Venda from './modelVenda';
 
 const Produto = database.define('Produto', {
     id: {
@@ -18,18 +17,6 @@ const Produto = database.define('Produto', {
         allowNull: false
     },
     preco: DataTypes.DECIMAL,
-    idProduto: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: 'Produto',
-            key: 'id'
-        }
-    },
-})
-
-Venda.belongsTo(Produto, {
-    constraints: true,
-    as: 'fkIdProduto'
 })
 
 

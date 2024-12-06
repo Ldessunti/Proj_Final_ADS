@@ -24,6 +24,9 @@ Agendamento.belongsTo(Barbeiro, {
     foreignKey: 'fkIdBarbeiro'
 })
 
-
+Agendamento.belongsTo(Cliente, {
+    constraints: true,
+    foreignKey: 'fkIdCliente'
+})
 
 module.exports = Agendamento;
