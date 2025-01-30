@@ -22,11 +22,7 @@ export default props => {
       console.error(error);
     }
   }
-
-  const updateCliente = async () => {
-    navigation.navigate('ClientesUpdate');
-  }
-
+  
   const removeCliente = async (id) => {
     Alert.alert(
       'Confirmação',
@@ -80,7 +76,7 @@ export default props => {
             <Text style={styles.profileEmail}>{item.email}</Text>
             <Text style={styles.profilePhone}>{item.telefone}</Text>
             <View style={styles.icons}>
-              <TouchableOpacity style={styles.icon} onPress={updateCliente}>
+              <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate('ClientesUpdate')}>
                 <FontAwesome name="pencil" size={24} color="#4CAF50" />
               </TouchableOpacity>
               <TouchableOpacity style={styles.icon} onPress={() => removeCliente(item.id)}>

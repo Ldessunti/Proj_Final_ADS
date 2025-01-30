@@ -27,14 +27,6 @@ export default props => {
     }
   }
 
-  const addProduto = async () => {
-    navigation.navigate('ProdutosAdd');
-  }
-
-  const updateProduto = async () => {
-    navigation.navigate('ProdutosUpdate');
-  }
-
   const removeProduto = async (id) => {
     try {
       const response = await fetch(`http://localhost:3000/modelProduto/${id}`, {
@@ -59,7 +51,7 @@ export default props => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Nossos Produtos</Text>
-      <TouchableOpacity onPress={addProduto}>
+      <TouchableOpacity onPress={() => navigation.navigate('ProdutosAdd')}>
         <FontAwesome name="plus" size={24} color="black" />
       </TouchableOpacity>
       <FlatList
@@ -71,10 +63,10 @@ export default props => {
             <Text style={styles.id}>{item.id}</Text>
             <Text style={styles.name}>{item.name}</Text>
             <Text style={styles.price}>{item.quantidadeEstoque}</Text>
-            <Text style={styles.price}>{item.preco}</Text>
+            <Text style={styles.price}>R${item.preco}</Text>
             <View style={styles.icons}>
               <View style={styles.icons2}> 
-                <TouchableOpacity onPress={updateProduto}>
+                <TouchableOpacity onPress={() => navigation.navigate('ProdutosUpdate')}>
                   <FontAwesome name="pencil" size={24} color="black" />
                 </TouchableOpacity>
               </View>

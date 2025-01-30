@@ -23,9 +23,6 @@ export default props => {
       });
       if(response.ok){
         Alert.alert('Sucesso', 'Corte atualizado com sucesso!');
-        setName('');
-        setQuantidadeEstoque('');
-        setPreco('');
         setProdutos(response);
         
         navigation.navigate('Produtos');

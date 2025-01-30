@@ -22,14 +22,6 @@ export default props => {
     }
   }
 
-  const addVenda = async () => {
-    navigation.navigate('VendasAdd');
-  }
-
-  const updateVenda = async () => {
-    navigation.navigate('VendasUpdate')
-  }
-
   const removeVenda = async (id) => {
     console.log(id);
     try {
@@ -55,7 +47,7 @@ export default props => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Nossas Vendas</Text>
-      <TouchableOpacity onPress={addVenda}>
+      <TouchableOpacity onPress={() => navigation.navigate('VendasAdd')}>
         <FontAwesome name="plus" size={24} color="black" />
       </TouchableOpacity>
       <FlatList
@@ -68,7 +60,7 @@ export default props => {
             <Text style={styles.name}>{item.dataVenda}</Text>
             <View style={styles.icons}>
               <View style={styles.icons2}> 
-                <TouchableOpacity onPress={updateVenda}>
+                <TouchableOpacity onPress={() => navigation.navigate('VendasUpdate')}>
                   <FontAwesome name="pencil" size={24} color="black" />
                 </TouchableOpacity>
               </View>

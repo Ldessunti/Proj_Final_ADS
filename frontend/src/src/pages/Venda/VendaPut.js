@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, Alert, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 export default props => {
   const [dataVenda, setDataVenda] = useState('');
   const [id, setId] = useState('');
+  const navigation = useNavigation();
+
     
   const handleUpdate = async () => {
     if (dataVenda === '') {
@@ -19,9 +23,9 @@ export default props => {
         },
         body: JSON.stringify({dataVenda}),
       });
-  
       if (response.ok) {
         Alert.alert('Sucesso', 'Venda atualizada com sucesso!');
+        navigation.navigate('Vendas');
       } else {
         Alert.alert('Erro', 'Falha ao atualizar a venda.');
       }

@@ -22,15 +22,7 @@ export default props => {
       console.error(error);
     }
   }
-
-  const addCortes = async () => {
-    navigation.navigate('CortesAdd');
-  }
-
-  const updateCortes = async () => {
-    navigation.navigate('CortesUpdate');
-  }
-
+  
   const removeCortes = async (id) => {
     console.log(id);
     try {
@@ -56,7 +48,7 @@ export default props => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Nossos Cortes</Text>
-      <TouchableOpacity onPress={addCortes}>
+      <TouchableOpacity onPress={() => navigation.navigate('CortesAdd')}>
         <FontAwesome name="plus" size={24} color="black" /> 
       </TouchableOpacity>
       <FlatList
@@ -70,7 +62,7 @@ export default props => {
             <Text style={styles.price}>{item.preco}</Text>
             <View style={styles.icons}>
               <View style={styles.icons2}> 
-                <TouchableOpacity onPress={updateCortes}>
+                <TouchableOpacity onPress={() => navigation.navigate('CortesUpdate')}>
                   <FontAwesome name="pencil" size={24} color="black" />
                 </TouchableOpacity>
               </View>

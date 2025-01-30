@@ -37,7 +37,7 @@ export default function Home({ navigation }) {
 
           <TouchableOpacity 
             style={styles.button}
-            onPress={() => navigation.navigate('AgendamentosAdd')}
+            onPress={() => navigation.navigate('Agendamentos')}
           >
             <Text style={styles.buttonText}>Agende seu Horário</Text>
           </TouchableOpacity>
@@ -54,6 +54,13 @@ export default function Home({ navigation }) {
             onPress={() => navigation.navigate('Clientes')}
           >
             <Text style={styles.buttonText}>Clientes</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={styles.button}
+            onPress={() => navigation.navigate('Graficos')}
+          >
+            <Text style={styles.buttonText}>Gráficos</Text>
           </TouchableOpacity>
         </View>
       </View>
